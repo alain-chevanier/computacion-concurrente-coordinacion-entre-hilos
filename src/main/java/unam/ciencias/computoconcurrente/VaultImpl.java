@@ -12,16 +12,8 @@ public class VaultImpl implements Vault {
   }
 
   public boolean isPassword(int guess) {
-    this.lock.lock();
-    try {
-      if (!passwordFound) {
-        passwordFound = this.password == guess;
-      }
-    } finally {
-      this.lock.unlock();
-    }
 
-    return passwordFound;
+    return false;
   }
 
   public boolean isPasswordFound() {

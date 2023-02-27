@@ -20,25 +20,7 @@ public class ThiefImpl implements Thief {
   }
 
   @Override
-  public void tryToFindPassword() {
-    int spaceSize = this.guessUpperBound / this.participants;
-    int min = spaceSize * this.thiefId;
-    int max = spaceSize * (this.thiefId + 1);
-    // System.out.println("Thief " + this.thiefId + " space [" + min + ", " + max + ")");
-    while (true) {
-      if (vault.isPasswordFound()) {
-        break;
-      }
-      Thread current = Thread.currentThread();
-      if (current.isInterrupted()) {
-        // System.out.println("Thief " + thiefId + " was caught");
-        break;
-      }
-      int guess = random.ints(min, max).findFirst().getAsInt();
-      vault.isPassword(guess);
-      this.tries++;
-    }
-  }
+  public void tryToFindPassword() {}
 
   @Override
   public int getId() {
@@ -47,7 +29,7 @@ public class ThiefImpl implements Thief {
 
   @Override
   public int getTries() {
-    return this.tries;
+    return 0;
   }
 
   @Override
