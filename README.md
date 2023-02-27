@@ -257,10 +257,8 @@ for level from 0 to N−1 exclusive
 Para esta actividad tienes que implementar el algoritmo de Peterson visto en clase para 
 generar un candado que solucione el problema de exclusión mutua para `n` hilos.
 
-Crea la clase `FilterAlgorithmLock` que implementa la interfaz `Lock`. 
-Para validar que tu implementación sea correcta tienes implementar pruebas unitarias,
-para ello crea la clase `FilterAlgorithmLockTest`.
-
-Para que el punto extra cuente, debes escribir las pruebas unitarias de este ejercicio para 
-comprobar que está bien implementado. 
-Puedes basarte en las pruebas hechas para el Algoritmo de Peterson definidas en `PetersonLockTest`.
+Implementa la clase `FilterLock` que implementa la interfaz `Lock`. 
+Para validar que tu implementación sea correcta tienes que pasar las pruebas en 
+listadas en la clase `FilterLockTest`. Para activar la ejecución de las pruebas de 
+este ejercicio tienes que cambiar el valor de `filter-lock.enabled` a `true` en el 
+archivo `src/test/resources/application.properties`.
