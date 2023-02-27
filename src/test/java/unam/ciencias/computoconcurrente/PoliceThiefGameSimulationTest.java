@@ -54,7 +54,7 @@ public class PoliceThiefGameSimulationTest {
       opsCounter++;
       if ((System.currentTimeMillis() - currentTimestamp) % 100 == 0) {
         if (Thread.interrupted()) {
-          PASSWORD_UPPER_BOUND = opsCounter * 2;
+          PASSWORD_UPPER_BOUND = opsCounter / 2;
           return;
         }
       }
