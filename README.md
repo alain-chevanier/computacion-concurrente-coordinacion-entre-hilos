@@ -259,6 +259,6 @@ generar un candado que solucione el problema de exclusión mutua para `n` hilos.
 
 Implementa la clase `FilterLock` que implementa la interfaz `Lock`. 
 Para validar que tu implementación sea correcta tienes que pasar las pruebas en 
-listadas en la clase `FilterLockTest`. Para activar la ejecución de las pruebas de 
-este ejercicio tienes que cambiar el valor de `filter-lock.enabled` a `true` en el 
+listadas en la clase `FilterLockTest`. Para activar la ejecución de dichas pruebas 
+tienes que cambiar el valor de `filter-lock.enabled` a `true` en el 
 archivo `src/test/resources/application.properties`.
