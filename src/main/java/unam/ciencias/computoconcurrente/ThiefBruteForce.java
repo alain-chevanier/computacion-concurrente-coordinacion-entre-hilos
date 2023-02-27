@@ -20,14 +20,14 @@ public class ThiefBruteForce implements Thief {
     int spaceSize = this.guessUpperBound / this.participants;
     int min = spaceSize * this.thiefId;
     int max = spaceSize * (this.thiefId + 1);
-    System.out.println("Thief " + this.thiefId + " space [" + min + ", " + max + ")");
+    // System.out.println("Thief " + this.thiefId + " space [" + min + ", " + max + ")");
     for (int i = min; i < max; i++) {
       if (vault.isPasswordFound()) {
         break;
       }
       Thread current = Thread.currentThread();
       if (current.isInterrupted()) {
-        System.out.println("Thief " + thiefId + " was caught");
+        // System.out.println("Thief " + thiefId + " was caught");
         break;
       }
       int guess = i;

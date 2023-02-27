@@ -11,30 +11,24 @@ import org.junit.jupiter.api.Timeout;
 
 public class PoliceThiefGameSimulationTest {
   final int SIMULATIONS = 10;
-  final int DURATION_IN_MS = 10000;
-  final int PASSWORD_UPPER_BOUND = 300000000;
+  final int DURATION_IN_MS = 500;
+  int PASSWORD_UPPER_BOUND;
 
   @Test
-  @Timeout(DURATION_IN_MS * 11)
+  @Timeout(DURATION_IN_MS * SIMULATIONS)
   void runSimulations() throws InterruptedException {
+    calibrateMaxPassword();
     Random random = new Random();
     int policeWinCount = 0;
     for (int i = 0; i < SIMULATIONS; i++) {
       int currentPassword = random.ints(0, PASSWORD_UPPER_BOUND).findFirst().getAsInt();
-      System.out.println(
-          "\n\nStarting simulation " + i + ". Password to be found " + currentPassword);
+      // Starting simulation " + i
       PoliceThiefGameSimulation simulation =
           new PoliceThiefGameSimulation(currentPassword, PASSWORD_UPPER_BOUND, DURATION_IN_MS);
       PoliceThiefGameWinner winner = simulation.runSimulation();
       if (winner == PoliceThiefGameWinner.POLICE) {
-        System.out.println("Policeman caught the thieves.");
+        // Police caught the thieves
         policeWinCount++;
-      } else {
-        System.out.println("Thieves escaped with the vault content.");
-      }
-
-      for (Thief t : simulation.getThieves()) {
-        System.out.println(t);
       }
     }
 
@@ -42,5 +36,28 @@ public class PoliceThiefGameSimulationTest {
 
     assertThat(policeWinCount, is(greaterThan(0)));
     assertThat(policeWinCount, is(lessThan(SIMULATIONS)));
+  }
+
+  private void calibrateMaxPassword() throws InterruptedException {
+    Thread t = new Thread(this::runDuration);
+    t.start();
+    Thread.sleep(DURATION_IN_MS);
+    t.interrupt();
+    t.join();
+    System.out.println("PASSWORD_UPPER_BOUND: " + PASSWORD_UPPER_BOUND);
+  }
+
+  void runDuration() {
+    long currentTimestamp = System.currentTimeMillis();
+    int opsCounter = 0;
+    while (true) {
+      opsCounter++;
+      if ((System.currentTimeMillis() - currentTimestamp) % 100 == 0) {
+        if (Thread.interrupted()) {
+          PASSWORD_UPPER_BOUND = opsCounter * 3 / 4;
+          return;
+        }
+      }
+    }
   }
 }

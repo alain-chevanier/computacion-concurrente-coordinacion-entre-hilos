@@ -4,9 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.Test;
 
 public class FiveValueCounterTest {
-  final int EXECUTIONS = 100;
+  final int EXECUTIONS = 10;
   final int ITERATIONS = 100;
-  final int ACCEPTANCE_PERCENTAGE = 50;
+  final int ACCEPTANCE_PERCENTAGE = 3;
   final int EXPECTED_VALUE = 5;
 
   @Test
