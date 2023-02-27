@@ -248,7 +248,7 @@ last_to_enter: array of N−1 integers
 for level from 0 to N−1 exclusive
     level[threadId] <- level
     last_to_enter[level] <- threadId
-    while last_to_enter[level] = threadId and there exists k != i, such that level[k] ≥ level
+    while last_to_enter[level] = threadId and there existsa k != threadId, such that level[k] ≥ level
         wait
 ```
 

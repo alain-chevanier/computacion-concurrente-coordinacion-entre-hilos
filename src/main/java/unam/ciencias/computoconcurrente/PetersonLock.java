@@ -17,7 +17,7 @@ public class PetersonLock implements Lock {
 
   @Override
   public void lock() {
-    int threadId = this.getCurrentThreadId();
+    int threadId = ThreadID.get();
 
     flag.get(threadId).setValue(true);
     victim = threadId;
@@ -27,11 +27,7 @@ public class PetersonLock implements Lock {
 
   @Override
   public void unlock() {
-    int threadId = this.getCurrentThreadId();
+    int threadId = ThreadID.get();
     flag.get(threadId).setValue(false);
-  }
-
-  private int getCurrentThreadId() {
-    return Integer.parseInt(Thread.currentThread().getName()) % 2;
   }
 }

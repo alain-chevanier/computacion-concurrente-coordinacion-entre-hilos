@@ -20,16 +20,17 @@ public class PetersonLockTest {
 
   @Test
   void lock() throws InterruptedException {
-    Thread[] threads = new Thread[2];
+
     for (int i = 0; i < ITERATIONS; i++) {
+      ThreadID.resetInitialThreadIDTo(0);
       counter = new ThreadSafeCounter(lock);
+      Thread[] threads = new Thread[2];
       threads[0] = new Thread(this::incrementCounter, "0");
       threads[1] = new Thread(this::incrementCounter, "1");
       threads[0].start();
       threads[1].start();
       threads[0].join();
       threads[1].join();
-
       assertThat(2 * MAX_VALUE, is(equalTo(counter.getValue())));
     }
   }
