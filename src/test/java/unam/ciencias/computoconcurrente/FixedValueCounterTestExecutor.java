@@ -34,6 +34,7 @@ public class FixedValueCounterTestExecutor {
     for (int i = 0; i < executions; i++) {
       FixedValueCounter counter = this.fixedValueCounterClass.getConstructor().newInstance();
       counter.setRounds(iterationsPerThread);
+      ThreadID.resetInitialThreadIDTo(0);
       threads[0] = new Thread(() -> incrementCounter(counter, iterationsPerThread), "0");
       threads[1] = new Thread(() -> incrementCounter(counter, iterationsPerThread), "1");
       threads[0].start();
