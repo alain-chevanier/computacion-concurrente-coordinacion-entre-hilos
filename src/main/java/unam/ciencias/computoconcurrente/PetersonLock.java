@@ -9,20 +9,32 @@ import java.util.List;
 public class PetersonLock implements Lock {
 
   private List<VolatileField<Boolean>> flag;
-  private volatile int victim;
+  private volatile int lastToArrive;
 
   public PetersonLock() {
     flag = List.of(new VolatileField<>(false), new VolatileField<>(false));
   }
 
   @Override
-  public void lock() {
-    int threadId = ThreadID.get();
+  public void lock() { // acquire
+    int threadId = ThreadID.get(); // 0, 1
 
     flag.get(threadId).setValue(true);
-    victim = threadId;
+    lastToArrive = threadId;
 
-    while (flag.get(1 - threadId).getValue() && victim == threadId) {}
+    // threadId = 0 -> 1-0 = 1
+    // threadId = 1-> 1-1 = 0
+    while (theOtherThreadWantsTheLock() && iWasTheLastToArrive()) {}
+  }
+
+  private boolean theOtherThreadWantsTheLock() {
+    int threadId = ThreadID.get(); // 0, 1
+    return flag.get(1 - threadId).getValue();
+  }
+
+  private boolean iWasTheLastToArrive() {
+    int threadId = ThreadID.get(); // 0, 1
+    return lastToArrive == threadId;
   }
 
   @Override
