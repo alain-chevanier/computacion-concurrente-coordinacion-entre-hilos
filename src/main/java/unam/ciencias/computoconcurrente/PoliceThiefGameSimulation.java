@@ -20,41 +20,12 @@ public class PoliceThiefGameSimulation {
     this.simulationDurationInMS = simulationDurationInMS;
     this.thieves = new ArrayList<>(THIEVES);
     for (int i = 0; i < THIEVES; i++) {
-      this.thieves.add(new ThiefBruteForce(vault, this.passwordUpperBound, i, THIEVES));
+      this.thieves.add(new ThiefImpl(vault, this.passwordUpperBound, i, THIEVES));
     }
   }
 
   public PoliceThiefGameWinner runSimulation() throws InterruptedException {
-    List<Thread> thiefThreads = new ArrayList<>(this.thieves.size());
-    ThreadID.resetInitialThreadIDTo(0);
-    for (Thief thief : this.thieves) {
-      thiefThreads.add(new Thread(thief::tryToFindPassword, thief.getId() + ""));
-    }
-
-    thiefThreads.forEach(Thread::start);
-
-    for (int i = 0; i < VERIFICATIONS; i++) {
-      Thread.sleep(this.simulationDurationInMS / VERIFICATIONS);
-      if (vault.isPasswordFound()) {
-        break;
-      }
-    }
-
-    for (Thread t : thiefThreads) {
-      if (t.isAlive()) {
-        t.interrupt();
-      }
-    }
-
-    for (Thread t : thiefThreads) {
-      t.join();
-    }
-
-    if (this.vault.isPasswordFound()) {
-      return PoliceThiefGameWinner.THIEF;
-    } else {
-      return PoliceThiefGameWinner.POLICE;
-    }
+    return PoliceThiefGameWinner.POLICE;
   }
 
   public List<Thief> getThieves() {
