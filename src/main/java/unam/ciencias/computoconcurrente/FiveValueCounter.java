@@ -2,12 +2,12 @@ package unam.ciencias.computoconcurrente;
 
 public class FiveValueCounter extends FixedValueCounter {
   public FiveValueCounter() {
-    super();
+    super(5);
   }
 
   @Override
   public int getAndIncrement() {
-    int id = Integer.parseInt(Thread.currentThread().getName());
+    int id = ThreadID.get();
     int it = iteration.get();
     int prevValue = 0;
     /*  Misma implementación que TwoValueCounter, pero
@@ -29,6 +29,7 @@ public class FiveValueCounter extends FixedValueCounter {
 
       /* El hilo 0 deja que el hilo 1 lea el valor inicial.*/
       if (id == 0 && it == 0) Thread.sleep(10);
+
       /* El hilo 0 permite que el hilo 1 ejecute todas sus
        * rondas para ser el último en escribir en su última.
        */

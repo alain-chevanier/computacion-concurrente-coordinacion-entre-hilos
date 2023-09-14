@@ -2,12 +2,12 @@ package unam.ciencias.computoconcurrente;
 
 public class TwoValueCounter extends FixedValueCounter {
   public TwoValueCounter() {
-    super();
+    super(2);
   }
 
   @Override
   public int getAndIncrement() {
-    int threadId = Integer.parseInt(Thread.currentThread().getName());
+    int threadId = ThreadID.get();
     int prevValue = 0;
     try {
       if ((iteration.get() == rounds - 1) && threadId == 1) {

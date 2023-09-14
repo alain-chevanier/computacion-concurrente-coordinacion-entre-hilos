@@ -32,11 +32,12 @@ public class FixedValueCounterTestExecutor {
     Thread[] threads = new Thread[2];
     int validExecutions = 0;
     for (int i = 0; i < executions; i++) {
-      FixedValueCounter counter = this.fixedValueCounterClass.getConstructor().newInstance();
+      FixedValueCounter counter = new FixedValueCounter(this.expectedValue);
+      //this.fixedValueCounterClass.getConstructor().newInstance();
       counter.setRounds(iterationsPerThread);
       ThreadID.resetInitialThreadIDTo(0);
-      threads[0] = new Thread(() -> incrementCounter(counter, iterationsPerThread), "0");
-      threads[1] = new Thread(() -> incrementCounter(counter, iterationsPerThread), "1");
+      threads[0] = new Thread(() -> incrementCounter(counter, iterationsPerThread));
+      threads[1] = new Thread(() -> incrementCounter(counter, iterationsPerThread));
       threads[0].start();
       threads[1].start();
       threads[0].join();
