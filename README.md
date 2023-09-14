@@ -190,11 +190,11 @@ valor esperado al menos 5 veces.
 
 #### Especificación del programa
 
-Para esta actividad tienes que implementar la clase `TwoValueCounter` y 
-`FixedValueCounter`, que contiene los métodos `getAndIncrement`, 
+Para esta actividad tienes que implementar la clase `FixedValueCounter`, 
+que contiene los métodos `getAndIncrement`, 
 `getAndDecrement`, `getValue`. Para validar que tu implementación sea 
 correcta tienes que pasar todas las pruebas unitarias que se encuentran en 
-la clase `TwoValueCounterTest` y `FiveValueCounterTest`.
+la clase `FixedValueCounterTest` .
 
 ### [PROBLEMA 3] Policía y Ladrones
 
