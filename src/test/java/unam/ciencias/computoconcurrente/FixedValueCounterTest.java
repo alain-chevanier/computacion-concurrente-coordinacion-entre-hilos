@@ -19,9 +19,10 @@ public class FixedValueCounterTest {
     Random random = new Random();
     for (int it = 0; it < DIFFERENT_VALUES; it++) {
       int expectedValue = Math.abs(random.nextInt() % (ITERATIONS - 2)) + 2;
+      System.out.println("EXPECTED_VALUE: " + expectedValue);
       FixedValueCounterTestExecutor executor =
         new FixedValueCounterTestExecutor(
-          EXECUTIONS, ITERATIONS, ACCEPTANCE_PERCENTAGE, expectedValue, FiveValueCounter.class);
+          EXECUTIONS, ITERATIONS, ACCEPTANCE_PERCENTAGE, expectedValue);
       executor.executeTest();
     }
   }

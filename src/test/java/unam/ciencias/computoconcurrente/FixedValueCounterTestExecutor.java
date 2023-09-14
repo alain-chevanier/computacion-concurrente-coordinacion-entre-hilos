@@ -11,19 +11,16 @@ public class FixedValueCounterTestExecutor {
   private int iterationsPerThread;
   private int acceptancePercentage;
   private int expectedValue;
-  private Class<? extends FixedValueCounter> fixedValueCounterClass;
 
   public FixedValueCounterTestExecutor(
       int executions,
       int iterationsPerThread,
       int acceptancePercentage,
-      int expectedValue,
-      Class<? extends FixedValueCounter> fixedValueCounterClass) {
+      int expectedValue) {
     this.executions = executions;
     this.iterationsPerThread = iterationsPerThread;
     this.acceptancePercentage = acceptancePercentage;
     this.expectedValue = expectedValue;
-    this.fixedValueCounterClass = fixedValueCounterClass;
   }
 
   public void executeTest()
@@ -33,7 +30,6 @@ public class FixedValueCounterTestExecutor {
     int validExecutions = 0;
     for (int i = 0; i < executions; i++) {
       FixedValueCounter counter = new FixedValueCounter(this.expectedValue);
-      //this.fixedValueCounterClass.getConstructor().newInstance();
       counter.setRounds(iterationsPerThread);
       ThreadID.resetInitialThreadIDTo(0);
       threads[0] = new Thread(() -> incrementCounter(counter, iterationsPerThread));
@@ -45,9 +41,9 @@ public class FixedValueCounterTestExecutor {
 
       if (counter.getValue() == this.expectedValue) {
         validExecutions++;
-        // System.out.println("iteration " + i + " passes");
+        System.out.println("iteration " + i + " passes");
       } else {
-        // System.out.println("iteration " + i + " fails with value " + counter.getValue());
+        System.out.println("iteration " + i + " fails with value " + counter.getValue());
       }
     }
     System.out.println(validExecutions + "/" + executions + " valid Executions");
